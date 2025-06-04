@@ -8,10 +8,10 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ["username", "email", "password"]
         extra_kwargs = {"password": {"write_only": True}}
 
-    def create(self, validated_data: dict):
+    def create(self, validated_data: dict) -> User:
         return User.objects.create_user(**validated_data)
 
-    def validate_username(self, value: str):
+    def validate_username(self, value: str) -> str:
         if User.objects.filter(username=value).exists():
             raise serializers.ValidationError(
                 "Пользователь с таким именем уже существует."
@@ -22,14 +22,14 @@ class UserSerializer(serializers.ModelSerializer):
             )
         return value
 
-    def validate_email(self, value: str):
+    def validate_email(self, value: str) -> str:
         if User.objects.filter(email=value).exists():
             raise serializers.ValidationError(
                 "Пользователь с таким email уже зарегистрирован."
             )
         return value
 
-    def validate_password(self, value: str):
+    def validate_password(self, value: str) -> str:
         if len(value) < 8:
             raise serializers.ValidationError(
                 "Пароль должен содержать минимум 8 символов."
@@ -40,7 +40,7 @@ class UserSerializer(serializers.ModelSerializer):
             )
         return value
 
-    def validate(self, attrs: dict):
+    def validate(self, attrs: dict) -> dict:
         username = attrs.get("username", "")
         email = attrs.get("email", "")
         if username and email and \

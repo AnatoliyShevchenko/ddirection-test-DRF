@@ -10,11 +10,15 @@ from rest_framework_simplejwt.views import (
 )
 
 from users.views import UsersViewSet
+from tasks.views import TasksViewSet
 
 
 router = DefaultRouter()
 router.register(
     prefix="users", viewset=UsersViewSet, basename="users"
+)
+router.register(
+    prefix="tasks", viewset=TasksViewSet, basename="tasks"
 )
 
 schema_view = get_schema_view(
