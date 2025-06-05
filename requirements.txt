@@ -4,6 +4,7 @@ django-cors-headers==4.7.0
 djangorestframework==3.16.0
 djangorestframework_simplejwt==5.5.0
 drf-yasg==1.21.10
+gunicorn==23.0.0
 inflection==0.5.1
 packaging==25.0
 psycopg==3.2.9
@@ -13,3 +14,4 @@ pytz==2025.2
 PyYAML==6.0.2
 sqlparse==0.5.3
 uritemplate==4.2.0
+whitenoise==6.9.0
