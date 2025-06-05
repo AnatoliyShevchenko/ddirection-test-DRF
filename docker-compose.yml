@@ -1,0 +1,32 @@
+services:
+  db:
+    image: postgres:17.2
+    container_name: ${DB_HOST}
+    volumes:
+      - dd-test-db-volume:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+      POSTGRES_DB: ${DB_NAME}
+    restart: always
+    networks:
+      - dd-test
+
+  web:
+    build: .
+    container_name: dd-test-drf
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    restart: always
+    networks:
+      - dd-test
+    volumes:
+    - ./staticfiles:/app/staticfiles:rw
+
+networks:
+  dd-test:
+
+volumes:
+  dd-test-db-volume:
